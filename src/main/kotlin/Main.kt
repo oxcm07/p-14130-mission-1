@@ -26,9 +26,14 @@ fun main() {
         }
         input?.let {
             if (it.startsWith("삭제?id=")) {
-                val id = input.substringAfter("id=").toInt()
-                wiseSayings.remove(wiseSayings.find { saying -> saying.id == id })
-                println("${id}번 명언이 삭제되었습니다.")
+                val id = it.substringAfter("id=").toIntOrNull()
+                val found = wiseSayings.find { saying -> saying.id == id }
+                if (found != null) {
+                    wiseSayings.remove(wiseSayings.find { saying -> saying.id == id })
+                    println("${id}번 명언이 삭제되었습니다.")
+                } else {
+                    println("${id}번 명언은 존재하지 않습니다.")
+                }
             }
         }
         if (input == "종료") break
